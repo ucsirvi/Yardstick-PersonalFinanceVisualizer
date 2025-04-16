@@ -10,5 +10,6 @@ const {
 // Define routes
 router.route("/").get(getTransactions).post(addTransaction);
 router.route("/:id").put(updateTransaction).delete(deleteTransaction);
+router.route("/:id").delete(deleteTransaction);
 
 module.exports = router;
