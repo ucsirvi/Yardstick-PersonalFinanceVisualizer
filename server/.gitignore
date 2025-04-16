@@ -1,0 +1,44 @@
+### Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+### Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+### Logs
+logs/
+*.log
+logs/**/*.log
+
+### Build files
+dist/
+build/
+public/
+
+### Database files
+*.sqlite
+*.sqlite-journal
+
+### VS Code settings
+.vscode/
+
+### MacOS and system files
+.DS_Store
+Thumbs.db
+
+### Server uploads (if any)
+uploads/
+
+### Coverage reports
+coverage/
+
+### Production files
+*.tar.gz
+*.zip
