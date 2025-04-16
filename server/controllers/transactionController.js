@@ -28,42 +28,63 @@ const addTransaction = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+const mongoose = require("mongoose");
 
-// Delete a transaction
 const deleteTransaction = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const transaction = await Transaction.findById(id);
+    // Debug log to check the ID
+    console.log("Transaction ID to delete:", id);
+
+    // Validate the ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.error("Invalid transaction ID:", id);
+      return res.status(400).json({ message: "Invalid transaction ID" });
+    }
+
+    // Attempt to delete the transaction
+    const transaction = await Transaction.findByIdAndDelete(id);
     if (!transaction) {
+      console.error("Transaction not found:", id);
       return res.status(404).json({ message: "Transaction not found" });
     }
 
-    await transaction.remove();
+    console.log("Transaction deleted successfully:", id);
     res.status(200).json({ message: "Transaction deleted successfully." });
   } catch (error) {
-    console.error("Error deleting transaction:", error);
+    console.error("Error deleting transaction:", error); // Debug log
     res.status(500).json({ message: "Failed to delete transaction." });
   }
 };
-
 // filepath: /server/controllers/transactionController.js
 const updateTransaction = async (req, res) => {
   try {
-    const { id } = req.params; // Ensure this matches the route parameter
+    const { id } = req.params;
     const { description, amount, date, category } = req.body;
+
+    console.log("Transaction ID to update:", id);
+    console.log("Request Body:", req.body);
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.error("Invalid transaction ID:", id);
+      return res.status(400).json({ message: "Invalid transaction ID" });
+    }
 
     const transaction = await Transaction.findById(id);
     if (!transaction) {
+      console.error("Transaction not found:", id);
       return res.status(404).json({ message: "Transaction not found" });
     }
-
-    transaction.description = description || transaction.description;
-    transaction.amount = amount || transaction.amount;
-    transaction.date = date || transaction.date;
-    transaction.category = category || transaction.category;
+    // Update only the fields that are provided
+    if (description) transaction.description = description;
+    if (amount) transaction.amount = amount;
+    if (date) transaction.date = date;
+    if (category) transaction.category = category;
 
     const updatedTransaction = await transaction.save();
+    console.log("Transaction updated successfully:", updatedTransaction);
+
     res.status(200).json(updatedTransaction);
   } catch (error) {
     console.error("Error updating transaction:", error);

@@ -11,13 +11,15 @@ function Dashboard({ transactions }) {
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/budgets`);
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/api/budgets`
+        );
         setBudgets(data);
       } catch (error) {
         console.error("Error fetching budgets:", error);
       }
     };
-  
+
     fetchBudgets();
   }, []);
 
@@ -41,16 +43,22 @@ function Dashboard({ transactions }) {
   });
 
   if (spendingInsights.length === 0) {
-    return <p>No spending insights available.</p>;
+    return (
+      <p className="text-center text-gray-500">
+        No spending insights available.
+      </p>
+    );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6 p-6 bg-gray-900 min-h-screen">
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="border rounded p-4 bg-white shadow">
-          <h2 className="text-xl font-semibold">Total Expenses</h2>
-          <p className="text-2xl font-bold">${totalExpenses}</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
+          <h2 className="text-xl font-semibold text-gray-100">
+            Total Expenses
+          </h2>
+          <p className="text-3xl font-bold text-gray-200">${totalExpenses}</p>
         </div>
         <div className="col-span-2">
           <CategoryPieChart transactions={transactions} />
@@ -58,24 +66,27 @@ function Dashboard({ transactions }) {
       </div>
 
       {/* Monthly Expenses Chart */}
-      <MonthlyExpensesChart transactions={transactions} />
-
-      {/* Budget vs Actual Comparison */}
-      <div className="border rounded p-4 bg-white shadow">
-        <BudgetComparisonChart budgets={budgets} transactions={transactions} />
+      <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
+        <MonthlyExpensesChart transactions={transactions} />
       </div>
 
+      {/* Budget vs Actual Comparison */}
+      <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
+        <BudgetComparisonChart budgets={budgets} transactions={transactions} />
+      </div>
       {/* Spending Insights */}
-      <div className="border rounded p-4 bg-white shadow">
-        <h2 className="text-xl font-semibold mb-4">Spending Insights</h2>
+      <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
+        <h2 className="text-xl font-semibold text-gray-100 mb-4">
+          Spending Insights
+        </h2>
         <ul>
           {spendingInsights.map((insight) => (
             <li
               key={insight.category}
-              className={`flex justify-between py-2 border-b last:border-none ${
+              className={`flex justify-between py-3 border-b last:border-none ${
                 insight.status === "Over Budget"
-                  ? "text-red-500"
-                  : "text-green-500"
+                  ? "text-red-400"
+                  : "text-green-400"
               }`}
             >
               <span>{insight.category}</span>
@@ -88,8 +99,10 @@ function Dashboard({ transactions }) {
       </div>
 
       {/* Recent Transactions */}
-      <div className="border rounded p-4 bg-white shadow">
-        <h2 className="text-xl font-semibold mb-4">Recent Transactions</h2>
+      <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
+        <h2 className="text-xl font-semibold text-gray-100 mb-4">
+          Recent Transactions
+        </h2>
         <ul>
           {transactions
             .slice(-5)
@@ -97,7 +110,7 @@ function Dashboard({ transactions }) {
             .map((transaction) => (
               <li
                 key={transaction._id}
-                className="flex justify-between py-2 border-b last:border-none"
+                className="flex justify-between py-3 border-b last:border-none text-gray-300"
               >
                 <span>{transaction.date.split("T")[0]}</span>
                 <span>{transaction.description}</span>
