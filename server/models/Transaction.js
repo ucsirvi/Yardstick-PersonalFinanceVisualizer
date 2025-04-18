@@ -5,7 +5,7 @@ const transactionSchema = mongoose.Schema(
     description: { type: String, required: true },
     amount: { type: Number, required: true },
     date: { type: Date, required: true },
-    category: { type: String, required: true }, // New field for category
+    category: { type: String, required: true }, 
   },
   { timestamps: true }
 );
