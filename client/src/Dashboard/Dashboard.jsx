@@ -7,7 +7,7 @@ import axios from "axios";
 function Dashboard({ transactions }) {
   const [budgets, setBudgets] = useState([]);
 
-  // Fetch budgets from the backend
+
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
@@ -28,7 +28,7 @@ function Dashboard({ transactions }) {
     0
   );
 
-  // Calculate spending insights
+
   const spendingInsights = budgets.map((budget) => {
     const actualSpending = transactions
       .filter((transaction) => transaction.category === budget.category)
@@ -52,7 +52,7 @@ function Dashboard({ transactions }) {
 
   return (
     <div className="space-y-6 p-6 bg-gray-900 min-h-screen">
-      {/* Summary Cards */}
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
           <h2 className="text-xl font-semibold text-gray-100">
@@ -65,16 +65,16 @@ function Dashboard({ transactions }) {
         </div>
       </div>
 
-      {/* Monthly Expenses Chart */}
+
       <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
         <MonthlyExpensesChart transactions={transactions} />
       </div>
 
-      {/* Budget vs Actual Comparison */}
+
       <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
         <BudgetComparisonChart budgets={budgets} transactions={transactions} />
       </div>
-      {/* Spending Insights */}
+
       <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
         <h2 className="text-xl font-semibold text-gray-100 mb-4">
           Spending Insights
@@ -98,7 +98,7 @@ function Dashboard({ transactions }) {
         </ul>
       </div>
 
-      {/* Recent Transactions */}
+
       <div className="border rounded-lg p-6 bg-gray-800 shadow-md">
         <h2 className="text-xl font-semibold text-gray-100 mb-4">
           Recent Transactions
