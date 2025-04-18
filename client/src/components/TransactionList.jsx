@@ -11,7 +11,7 @@ function TransactionList({ onUpdate }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch transactions from the backend
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -30,7 +30,7 @@ function TransactionList({ onUpdate }) {
     fetchTransactions();
   }, []);
 
-  // Fetch budgets from the backend
+
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
@@ -45,12 +45,12 @@ function TransactionList({ onUpdate }) {
     fetchBudgets();
   }, []);
 
-  // Handle editing a transaction
+
   const handleEdit = (transaction) => {
     setEditingTransaction(transaction);
   };
 
-  // Handle updating a transaction
+
   const handleUpdate = async (updatedTransaction) => {
     try {
       const url = `${import.meta.env.VITE_BASE_URL}/api/transactions/${
@@ -72,7 +72,7 @@ function TransactionList({ onUpdate }) {
     }
   };
 
-  // Handle deleting a transaction
+
   const handleDelete = async (transactionId) => {
     try {
       await axios.delete(
@@ -88,17 +88,17 @@ function TransactionList({ onUpdate }) {
     }
   };
 
-  // Show loading spinner while data is being fetched
+
   if (loading) {
     return <LoadingSpinner />;
   }
 
   return (
     <div className="space-y-6 p-6 bg-gray-900 min-h-screen">
-      {/* Error State */}
+
       {error && <ErrorState message={error} />}
 
-      {/* Transaction List */}
+
       <div className="border border-gray-700 rounded-lg p-6 bg-gray-800 shadow-md">
         <h2 className="text-xl font-semibold text-gray-100 mb-4">
           Transaction List
@@ -137,7 +137,7 @@ function TransactionList({ onUpdate }) {
         </ul>
       </div>
 
-      {/* Edit Form */}
+
       {editingTransaction && (
         <TransactionEditForm
           transaction={editingTransaction}
