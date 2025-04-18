@@ -7,13 +7,13 @@ const categories = [
   "Entertainment",
   "Transportation",
   "Other",
-]; // Predefined categories
+]; 
 
 function TransactionForm({ onAdd }) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-  const [category, setCategory] = useState(categories[0]); // Default category
+  const [category, setCategory] = useState(categories[0]); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
