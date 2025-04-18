@@ -1,6 +1,6 @@
 const Budget = require("../models/Budget");
 
-// GET /api/budgets - Fetch all budgets
+
 const getBudgets = async (req, res) => {
   try {
     const budgets = await Budget.find();
@@ -10,7 +10,7 @@ const getBudgets = async (req, res) => {
   }
 };
 
-// POST /api/budgets - Add a new budget
+
 const addBudget = async (req, res) => {
   const { category, amount } = req.body;
 
